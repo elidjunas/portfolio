@@ -9,7 +9,7 @@ left:
        - text: "Do COVID-19 testing rates predict nationwide health outcomes?"
          href: ./covid_testing.html
        - text: "SQL Project"
-         href: ./project3.html 
+         href: ./sql_cia_factbook.html 
   - text: "Contact"
     href: ./contact.html
 right:

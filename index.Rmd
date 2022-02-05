@@ -26,7 +26,7 @@ Looking ahead, I plan to complete a PhD in biostatistics in the next five years.
 ## *Programming Skills*
 I am proficient in data cleaning, transforming, exploration, visualisation, and statistical analysis using R. My skills with this language were developed primarily over the course of postgraduate dissertation, then further expanded in the completion of the independent project titled "Do COVID-19 testing rates predict nationwide health outcomes." Both projects are described below.
 
-Thus far I have worked exclusively with R, though I plan to begin learning Python in the coming months in order to gain experience with machine learning and webscraping. In the meantime, I am currently completing the "SQL Fundamentals" course in the "Data Analyst in R" path on <https://www.dataquest.io/> and will move on shortly to the "Intermediate SQL in R" course. In general, I am a keen, self-directed learner, and I am constantly working to upskill my abilities in data science. <br><br>  
+Thus far I have worked exclusively with R, though I plan to begin learning Python in the coming months because of its enhanced machine learning and webscraping capabilities. In the meantime, I am currently completing the "SQL Fundamentals" course in the "Data Analyst in R" path on <https://www.dataquest.io/> and will move on shortly to the "Intermediate SQL in R" course. In general, I am a keen, self-directed learner, and I am constantly working to upskill my abilities in data science. <br><br>  
 
 # **Portfolio Projects**
 
@@ -40,6 +40,6 @@ In this project I examined a large dataset on various countries' responses to th
 
 
 ## *Portfolio Projects in Progress*
-
+I am currently working on a project using SQL in Jupyter Notebook to query data from the CIA World Factbook, a large dataset that provides a wide range of statistics about all of the countries in the world. More on that to come soon...watch this space!
 
 

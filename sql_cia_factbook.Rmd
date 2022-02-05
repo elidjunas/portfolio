@@ -1,0 +1,12 @@
+---
+title: "sql_cia_factbook"
+author: "Eli Kliejunas"
+date: "06/02/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I am currently working on a project using SQL to query data from the CIA World Factbook, a large dataset that provides a wide range of statistics about all of the countries in the world. More on that to come soon...watch this space!
