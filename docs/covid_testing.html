@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Eli Kliejunas" />
+
+<meta name="date" content="2022-04-02" />
+
+<title>Do COVID-19 testing rates predict nationwide health outcomes?</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  { color: #cccccc; background-color: #303030; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffcfaf; } /* Alert */
+code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #dca3a3; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #f0dfaf; } /* ControlFlow */
+code span.ch { color: #dca3a3; } /* Char */
+code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code span.co { color: #7f9f7f; } /* Comment */
+code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code span.do { color: #7f9f7f; } /* Documentation */
+code span.dt { color: #dfdfbf; } /* DataType */
+code span.dv { color: #dcdccc; } /* DecVal */
+code span.er { color: #c3bf9f; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #c0bed1; } /* Float */
+code span.fu { color: #efef8f; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+code span.kw { color: #f0dfaf; } /* Keyword */
+code span.op { color: #f0efd0; } /* Operator */
+code span.ot { color: #efef8f; } /* Other */
+code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code span.sc { color: #dca3a3; } /* SpecialChar */
+code span.ss { color: #cc9393; } /* SpecialString */
+code span.st { color: #cc9393; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #cc9393; } /* VerbatimString */
+code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ELI'S DATA SCIENCE PORTFOLIO</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="./Dissertation.pdf">Quantifying the greenhouse gas emissions of New Zealand households’ food purchases: An analysis by socio-demographics</a>
+    </li>
+    <li>
+      <a href="./covid_testing.html">Do COVID-19 testing rates predict nationwide health outcomes?</a>
+    </li>
+    <li>
+      <a href="./project3.html">SQL Project</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="./contact.html">Contact</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/githubusername/mywebsite">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Do COVID-19 testing rates predict nationwide health outcomes?</h1>
+<h4 class="author">Eli Kliejunas</h4>
+<h4 class="date">04/02/2022</h4>
+
+</div>
+
+
+<style type="text/css">
+  body{
+  font-size: 16pt;
+  color: black; 
+}
+</style>
+<div id="introduction" class="section level2">
+<h2><strong>Introduction</strong></h2>
+<p>When attempting to minimize adverse health outcomes caused by infectious diseases, testing is an essential tool. Not only does it facilitate the successful treatment of individuals by identifying diseases in their early stages before symptoms and complications arise, it also augments secondary disease prevention by reducing transmission. Ideally, with timely and reliable identification of those who have contracted a disease, their ability to pass the disease on to others can be reduced via measures such as masking, social distancing and, by extension, isolation. Reduced transmission subsequently eases the pressure on hospitals, which struggle with high patient volumes and (at times) staff shortages during pandemics. Moreover, as mentioned above, expansive testing and early detection of diseases also lighten the burden on medical staff and resources by enabling early treatment of the disease. Finally, on a larger scale, governments and other public health organizations benefit from comprehensive testing regimes because they provide data that guides the efficient allocation of limited resources such as medical equipment.</p>
+<p>For the reasons outlined above, public health experts agree that testing is a crucial element of infectious disease control. However, while expansive testing is a necessary component of containing outbreaks, it is also insufficient. Rigorous testing alone does not prevent disease transmission, hospitalizations, and deaths. For one, the tests themselves must be valid in terms of their actual ability to accurately distinguish those who have a specific disease from those who do not. Moreover, the insights derived from testing data must be paired with other public health measures in order to reduce the burden of disease. For example, widespread testing may reveal a measles outbreak in a community, but the outbreak will continue to worsen in the absence of subsequent interventions such as immunizations or social distancing. The burden placed on that community’s health system will also intensify if resources and staff are not allocated in such a way that meets the increased demand for health services.</p>
+<p>The ongoing COVID-19 pandemic has laid bare the immense challenges of effectively responding to a global infectious disease outbreak. Since emerging in human populations at the end of 2019, the severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) virus has led to many millions of deaths, hospitalizations, and other adverse health outcomes worldwide. Health systems have been strained like never before. National responses to the pandemic have varied widely and, subsequently, countries around the world have experienced notably different health outcomes stemming from the outbreak.</p>
+<p>This project aims to examine various countries’ COVID-19 death and hospitalization numbers relative to the number of COVID-19 tests conducted. The dataset utilized for analysis, which compiles extensive health data from a number of official sources worldwide, is provided by the website Our World in Data (OWID) in the following link: <a href="https://github.com/owid/covid-19-data/blob/master/public/data/README.md" class="uri">https://github.com/owid/covid-19-data/blob/master/public/data/README.md</a>. Specifically, I use this dataset to evaluate whether testing rates (standardized per 100,000 people) are negatively associated with hospitalizations and deaths (also standardized per 100,000 people), as would be expected by public health experts. In other words, did countries with higher testing rates exhibit lower rates of hospitalizations and deaths than other countries with lower testing rates? Though case numbers are also provided in the dataset, transmission outcomes are not measured in the analysis because case numbers are highly dependent on case detection rates (i.e., the number of detected cases relative to the total number of estimated cases in a population), which vary widely between countries and are very difficult to determine with accuracy. <br><br></p>
+</div>
+<div id="cleaning-and-transforming-the-data" class="section level2">
+<h2><strong>Cleaning and transforming the data</strong></h2>
+<div id="glimpsing-the-data" class="section level3">
+<h3><em>“Glimpsing” the data</em></h3>
+<p>After importing OWID’s dataset into R, the <code>glimpse()</code> function summarizes the names and types of the information provided in each column as well as the dataset’s dimensions (i.e., the number of rows and columns).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>covid_df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;owid-covid-data.csv&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(covid_df)</span></code></pre></div>
+<pre><code>## Rows: 153,393
+## Columns: 67
+## $ iso_code                                   &lt;fct&gt; AFG, AFG, AFG, AFG, AF…
+## $ continent                                  &lt;fct&gt; Asia, Asia, Asia, Asia…
+## $ location                                   &lt;fct&gt; Afghanistan, Afghanist…
+## $ date                                       &lt;fct&gt; 2020-02-24, 2020-02-25…
+## $ total_cases                                &lt;dbl&gt; 5, 5, 5, 5, 5, 5, 5, 5…
+## $ new_cases                                  &lt;dbl&gt; 5, 0, 0, 0, 0, 0, 0, 0…
+## $ new_cases_smoothed                         &lt;dbl&gt; NA, NA, NA, NA, NA, 0.…
+## $ total_deaths                               &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ new_deaths                                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ new_deaths_smoothed                        &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ total_cases_per_million                    &lt;dbl&gt; 0.126, 0.126, 0.126, 0…
+## $ new_cases_per_million                      &lt;dbl&gt; 0.126, 0.000, 0.000, 0…
+## $ new_cases_smoothed_per_million             &lt;dbl&gt; NA, NA, NA, NA, NA, 0.…
+## $ total_deaths_per_million                   &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ new_deaths_per_million                     &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ new_deaths_smoothed_per_million            &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ reproduction_rate                          &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ icu_patients                               &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ icu_patients_per_million                   &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ hosp_patients                              &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ hosp_patients_per_million                  &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ weekly_icu_admissions                      &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ weekly_icu_admissions_per_million          &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ weekly_hosp_admissions                     &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ weekly_hosp_admissions_per_million         &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ new_tests                                  &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ total_tests                                &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ total_tests_per_thousand                   &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ new_tests_per_thousand                     &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ new_tests_smoothed                         &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ new_tests_smoothed_per_thousand            &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ positive_rate                              &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ tests_per_case                             &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ tests_units                                &lt;fct&gt; , , , , , , , , , , , …
+## $ total_vaccinations                         &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ people_vaccinated                          &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ people_fully_vaccinated                    &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ total_boosters                             &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ new_vaccinations                           &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ new_vaccinations_smoothed                  &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ total_vaccinations_per_hundred             &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ people_vaccinated_per_hundred              &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ people_fully_vaccinated_per_hundred        &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ total_boosters_per_hundred                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ new_vaccinations_smoothed_per_million      &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ new_people_vaccinated_smoothed             &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ new_people_vaccinated_smoothed_per_hundred &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ stringency_index                           &lt;dbl&gt; 8.33, 8.33, 8.33, 8.33…
+## $ population                                 &lt;dbl&gt; 39835428, 39835428, 39…
+## $ population_density                         &lt;dbl&gt; 54.422, 54.422, 54.422…
+## $ median_age                                 &lt;dbl&gt; 18.6, 18.6, 18.6, 18.6…
+## $ aged_65_older                              &lt;dbl&gt; 2.581, 2.581, 2.581, 2…
+## $ aged_70_older                              &lt;dbl&gt; 1.337, 1.337, 1.337, 1…
+## $ gdp_per_capita                             &lt;dbl&gt; 1803.987, 1803.987, 18…
+## $ extreme_poverty                            &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ cardiovasc_death_rate                      &lt;dbl&gt; 597.029, 597.029, 597.…
+## $ diabetes_prevalence                        &lt;dbl&gt; 9.59, 9.59, 9.59, 9.59…
+## $ female_smokers                             &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ male_smokers                               &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ handwashing_facilities                     &lt;dbl&gt; 37.746, 37.746, 37.746…
+## $ hospital_beds_per_thousand                 &lt;dbl&gt; 0.5, 0.5, 0.5, 0.5, 0.…
+## $ life_expectancy                            &lt;dbl&gt; 64.83, 64.83, 64.83, 6…
+## $ human_development_index                    &lt;dbl&gt; 0.511, 0.511, 0.511, 0…
+## $ excess_mortality_cumulative_absolute       &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ excess_mortality_cumulative                &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ excess_mortality                           &lt;dbl&gt; NA, NA, NA, NA, NA, NA…
+## $ excess_mortality_cumulative_per_million    &lt;dbl&gt; NA, NA, NA, NA, NA, NA…</code></pre>
+<p>As you can see, the dataset supplies many informative indicators of health outcomes related to the COVID-19 outbreak; in total, there are 67 variables measured in 153,393 observations. For the purposes of answering this project’s question of whether increased testing is associated with lower death and hospitalization rates, only a handful of the 67 variables are necessary. <br><br></p>
+</div>
+<div id="selecting-for-relevant-data" class="section level3">
+<h3><em>Selecting for relevant data</em></h3>
+<p>Therefore, a new dataframe is created that only selects for the relevant columns in the original <code>covid_df</code> dataset: country (<code>location</code>), date of the recorded data (<code>date</code>), total tests completed up to that point in time (<code>total_tests</code>), weekly hospital admissions (<code>weekly_hosp_admissions</code>), total deaths recorded up to that point in time (<code>total_deaths</code>), and population size (<code>population</code>).</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>covid_select_df <span class="ot">&lt;-</span> covid_df <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(location, date, total_tests, weekly_hosp_admissions, total_deaths, population)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(covid_select_df)</span></code></pre></div>
+<pre><code>## Rows: 153,393
+## Columns: 6
+## $ location               &lt;fct&gt; Afghanistan, Afghanistan, Afghanistan, Afg…
+## $ date                   &lt;fct&gt; 2020-02-24, 2020-02-25, 2020-02-26, 2020-0…
+## $ total_tests            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ weekly_hosp_admissions &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ total_deaths           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ population             &lt;dbl&gt; 39835428, 39835428, 39835428, 39835428, 39…</code></pre>
+<p>This new <code>covid_select_df</code> dataframe is easier to work with now that we have removed the information that is irrelevant to this particular project. The next step is to transform the data in such a way that allows us to answer the research question. Before doing that, though, we must examine the <code>population</code> values in the dataset closely, as they are instrumental in our calculations of tests per 100,000 people, hospitalizations per 100,000 people, and deaths per 100,000 people. Therefore, it is important to confirm that each country’s population is held constant in the dataset such that the population values are not fluctuating over time. We can do this by using the <code>group_by</code> function to organize the dataset by country and then counting the number of different population values (using the <code>unique()</code> function) provided for each country over the course of the dataset. These numbers are calculated and shown in the <code>testing_population_numbers_df</code> dataframe:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>testing_population_numbers_df <span class="ot">&lt;-</span> covid_df <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(location) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">unique_population_numbers =</span> <span class="fu">length</span>(<span class="fu">unique</span>(population)))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(testing_population_numbers_df)</span></code></pre></div>
+<pre><code>## Rows: 238
+## Columns: 2
+## $ location                  &lt;fct&gt; Afghanistan, Africa, Albania, Algeria, …
+## $ unique_population_numbers &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(testing_population_numbers_df<span class="sc">$</span>unique_population_numbers) </span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#confirms there is only 1 unique population value for each country in the dataset </span></span></code></pre></div>
+<p>The code confirms that each country’s population is held constant throughout the dataset, so we move on to next steps. <br><br></p>
+</div>
+<div id="making-column-names-more-informative" class="section level3">
+<h3><em>Making column names more informative</em></h3>
+<p>To make our modified dataframe easier to interpret, we proceed to change the name of the <code>location</code> column to <code>country</code> in <code>covid_select_df</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(covid_select_df)[<span class="fu">names</span>(covid_select_df) <span class="sc">==</span> <span class="st">&quot;location&quot;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;country&quot;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(covid_select_df)</span></code></pre></div>
+<pre><code>## Rows: 153,393
+## Columns: 6
+## $ country                &lt;fct&gt; Afghanistan, Afghanistan, Afghanistan, Afg…
+## $ date                   &lt;fct&gt; 2020-02-24, 2020-02-25, 2020-02-26, 2020-0…
+## $ total_tests            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ weekly_hosp_admissions &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ total_deaths           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ population             &lt;dbl&gt; 39835428, 39835428, 39835428, 39835428, 39…</code></pre>
+</div>
+<div id="summarising-the-data" class="section level3">
+<h3><em>Summarising the data</em></h3>
+<p>Now we move on to transforming the data in such a way that enables us to perform the statistical analyses necessary to answer our research question. Once again, we turn to the <code>group_by()</code> function, and then we use the <code>summarise</code> function to calculate new values based on the data in <code>covid_select_df</code>.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>covid_select_df<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(covid_select_df<span class="sc">$</span>date) </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#formats the date variable so that the min() and max() functions can be used on it to derive</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#the earliest and latest dates in which data was recorded </span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>country_summaries_df <span class="ot">&lt;-</span> covid_select_df <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">earliest_date =</span> <span class="fu">min</span>(date), </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>            <span class="co">#to get a sense of when each country started providing COVID-19 data</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">latest_date =</span> <span class="fu">max</span>(date), </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>            <span class="co">#to get a sense of how up to date the OWID dataset is</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">population_estimate =</span> population[date <span class="sc">==</span> earliest_date], </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">tests_total =</span> <span class="fu">max</span>(total_tests, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">deaths_total =</span> <span class="fu">max</span>(total_deaths, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">hospitalizations_total =</span> <span class="fu">sum</span>(weekly_hosp_admissions, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>            <span class="co">#na.rm = TRUE removes missing data points </span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(country_summaries_df)</span></code></pre></div>
+<pre><code>## Rows: 238
+## Columns: 7
+## $ country                &lt;fct&gt; Afghanistan, Africa, Albania, Algeria, And…
+## $ earliest_date          &lt;date&gt; 2020-02-24, 2020-02-13, 2020-02-25, 2020-…
+## $ latest_date            &lt;date&gt; 2022-01-09, 2022-01-09, 2022-01-09, 2022-…
+## $ population_estimate    &lt;dbl&gt; 39835428, 1373486472, 2872934, 44616626, 7…
+## $ tests_total            &lt;dbl&gt; -Inf, -Inf, 737014, -Inf, 275127, -Inf, -I…
+## $ deaths_total           &lt;dbl&gt; 7373, 230874, 3240, 6339, 141, 1826, 6, 12…
+## $ hospitalizations_total &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</code></pre>
+<p>As you can see in this preview of the new <code>country_summaries_df</code> dataframe, the data needs to be cleaned further in preparation for statistical analyses.<br><br></p>
+</div>
+<div id="removing-data-that-does-not-fit" class="section level3">
+<h3><em>Removing data that does not fit</em></h3>
+<p>First, looking at the values listed in the <code>country</code> column, it appears that some of the countries are, in fact, continents. This research is interested in examining the possible associations between testing rates and death and hospitalization rates at the country level, though, not at the continent level. Thus, we want to remove the observations that provide data on the continent level. We do this by first reviewing all of the unique values listed in the <code>country</code> column using the <code>unique()</code> function:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(country_summaries_df<span class="sc">$</span>country)</span></code></pre></div>
+<pre><code>##   [1] Afghanistan                      Africa                          
+##   [3] Albania                          Algeria                         
+##   [5] Andorra                          Angola                          
+##   [7] Anguilla                         Antigua and Barbuda             
+##   [9] Argentina                        Armenia                         
+##  [11] Aruba                            Asia                            
+##  [13] Australia                        Austria                         
+##  [15] Azerbaijan                       Bahamas                         
+##  [17] Bahrain                          Bangladesh                      
+##  [19] Barbados                         Belarus                         
+##  [21] Belgium                          Belize                          
+##  [23] Benin                            Bermuda                         
+##  [25] Bhutan                           Bolivia                         
+##  [27] Bonaire Sint Eustatius and Saba  Bosnia and Herzegovina          
+##  [29] Botswana                         Brazil                          
+##  [31] British Virgin Islands           Brunei                          
+##  [33] Bulgaria                         Burkina Faso                    
+##  [35] Burundi                          Cambodia                        
+##  [37] Cameroon                         Canada                          
+##  [39] Cape Verde                       Cayman Islands                  
+##  [41] Central African Republic         Chad                            
+##  [43] Chile                            China                           
+##  [45] Colombia                         Comoros                         
+##  [47] Congo                            Cook Islands                    
+##  [49] Costa Rica                       Cote d&#39;Ivoire                   
+##  [51] Croatia                          Cuba                            
+##  [53] Curacao                          Cyprus                          
+##  [55] Czechia                          Democratic Republic of Congo    
+##  [57] Denmark                          Djibouti                        
+##  [59] Dominica                         Dominican Republic              
+##  [61] Ecuador                          Egypt                           
+##  [63] El Salvador                      Equatorial Guinea               
+##  [65] Eritrea                          Estonia                         
+##  [67] Eswatini                         Ethiopia                        
+##  [69] Europe                           European Union                  
+##  [71] Faeroe Islands                   Falkland Islands                
+##  [73] Fiji                             Finland                         
+##  [75] France                           French Polynesia                
+##  [77] Gabon                            Gambia                          
+##  [79] Georgia                          Germany                         
+##  [81] Ghana                            Gibraltar                       
+##  [83] Greece                           Greenland                       
+##  [85] Grenada                          Guatemala                       
+##  [87] Guernsey                         Guinea                          
+##  [89] Guinea-Bissau                    Guyana                          
+##  [91] Haiti                            High income                     
+##  [93] Honduras                         Hong Kong                       
+##  [95] Hungary                          Iceland                         
+##  [97] India                            Indonesia                       
+##  [99] International                    Iran                            
+## [101] Iraq                             Ireland                         
+## [103] Isle of Man                      Israel                          
+## [105] Italy                            Jamaica                         
+## [107] Japan                            Jersey                          
+## [109] Jordan                           Kazakhstan                      
+## [111] Kenya                            Kiribati                        
+## [113] Kosovo                           Kuwait                          
+## [115] Kyrgyzstan                       Laos                            
+## [117] Latvia                           Lebanon                         
+## [119] Lesotho                          Liberia                         
+## [121] Libya                            Liechtenstein                   
+## [123] Lithuania                        Low income                      
+## [125] Lower middle income              Luxembourg                      
+## [127] Macao                            Madagascar                      
+## [129] Malawi                           Malaysia                        
+## [131] Maldives                         Mali                            
+## [133] Malta                            Marshall Islands                
+## [135] Mauritania                       Mauritius                       
+## [137] Mexico                           Micronesia (country)            
+## [139] Moldova                          Monaco                          
+## [141] Mongolia                         Montenegro                      
+## [143] Montserrat                       Morocco                         
+## [145] Mozambique                       Myanmar                         
+## [147] Namibia                          Nauru                           
+## [149] Nepal                            Netherlands                     
+## [151] New Caledonia                    New Zealand                     
+## [153] Nicaragua                        Niger                           
+## [155] Nigeria                          Niue                            
+## [157] North America                    North Macedonia                 
+## [159] Northern Cyprus                  Norway                          
+## [161] Oceania                          Oman                            
+## [163] Pakistan                         Palau                           
+## [165] Palestine                        Panama                          
+## [167] Papua New Guinea                 Paraguay                        
+## [169] Peru                             Philippines                     
+## [171] Pitcairn                         Poland                          
+## [173] Portugal                         Qatar                           
+## [175] Romania                          Russia                          
+## [177] Rwanda                           Saint Helena                    
+## [179] Saint Kitts and Nevis            Saint Lucia                     
+## [181] Saint Pierre and Miquelon        Saint Vincent and the Grenadines
+## [183] Samoa                            San Marino                      
+## [185] Sao Tome and Principe            Saudi Arabia                    
+## [187] Senegal                          Serbia                          
+## [189] Seychelles                       Sierra Leone                    
+## [191] Singapore                        Sint Maarten (Dutch part)       
+## [193] Slovakia                         Slovenia                        
+## [195] Solomon Islands                  Somalia                         
+## [197] South Africa                     South America                   
+## [199] South Korea                      South Sudan                     
+## [201] Spain                            Sri Lanka                       
+## [203] Sudan                            Suriname                        
+## [205] Sweden                           Switzerland                     
+## [207] Syria                            Taiwan                          
+## [209] Tajikistan                       Tanzania                        
+## [211] Thailand                         Timor                           
+## [213] Togo                             Tokelau                         
+## [215] Tonga                            Trinidad and Tobago             
+## [217] Tunisia                          Turkey                          
+## [219] Turkmenistan                     Turks and Caicos Islands        
+## [221] Tuvalu                           Uganda                          
+## [223] Ukraine                          United Arab Emirates            
+## [225] United Kingdom                   United States                   
+## [227] Upper middle income              Uruguay                         
+## [229] Uzbekistan                       Vanuatu                         
+## [231] Vatican                          Venezuela                       
+## [233] Vietnam                          Wallis and Futuna               
+## [235] World                            Yemen                           
+## [237] Zambia                           Zimbabwe                        
+## 238 Levels: Afghanistan Africa Albania Algeria Andorra Angola ... Zimbabwe</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the 238 levels listed at the bottom of the output refer to the original number of </span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># unique countries with observations in the dataset</span></span></code></pre></div>
+<p>Looking at this list of unique countries that are listed in the dataset, we can see that five are actually continents: Africa, North America, South America, Asia, Europe, and Australia. Fortunately, Australia is also its own country, so we do not need to remove its data, but we will need to remove the data for the other 5 continents. We do so using the <code>subset()</code> function:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>country_summaries_df <span class="ot">&lt;-</span> country_summaries_df <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(country <span class="sc">!=</span> <span class="st">&quot;Africa&quot;</span> <span class="sc">&amp;</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>         country <span class="sc">!=</span> <span class="st">&quot;Asia&quot;</span> <span class="sc">&amp;</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>         country <span class="sc">!=</span> <span class="st">&quot;Europe&quot;</span> <span class="sc">&amp;</span>  </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>         country <span class="sc">!=</span> <span class="st">&quot;North America&quot;</span> <span class="sc">&amp;</span> </span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>         country <span class="sc">!=</span> <span class="st">&quot;South America&quot;</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(country_summaries_df)</span></code></pre></div>
+<pre><code>## Rows: 233
+## Columns: 7
+## $ country                &lt;fct&gt; Afghanistan, Albania, Algeria, Andorra, An…
+## $ earliest_date          &lt;date&gt; 2020-02-24, 2020-02-25, 2020-02-25, 2020-…
+## $ latest_date            &lt;date&gt; 2022-01-09, 2022-01-09, 2022-01-09, 2022-…
+## $ population_estimate    &lt;dbl&gt; 39835428, 2872934, 44616626, 77354, 339336…
+## $ tests_total            &lt;dbl&gt; -Inf, 737014, -Inf, 275127, -Inf, -Inf, 16…
+## $ deaths_total           &lt;dbl&gt; 7373, 3240, 6339, 141, 1826, 6, 120, 11749…
+## $ hospitalizations_total &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</code></pre>
+</div>
+<div id="removing-countries-without-testing-data" class="section level3">
+<h3><em>Removing countries without testing data</em></h3>
+<p>Next, we observe that several of the values in the <code>tests_total</code>column, which were calculated by taking the maximum value of each country’s <code>total_tests</code> column in the <code>covid_select_df</code> dataframe, are listed as <code>-Inf</code>. This indicates that every single value in that country’s <code>total_tests</code> column is listed as <code>NA</code>. Without any testing data provided from those countries, we must remove them from our analyses, which we can accomplish using the <code>filter()</code> function:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>country_summaries_df <span class="ot">&lt;-</span> country_summaries_df <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(tests_total <span class="sc">!=</span> <span class="sc">-</span><span class="cn">Inf</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(country_summaries_df)</span></code></pre></div>
+<pre><code>## Rows: 135
+## Columns: 7
+## $ country                &lt;fct&gt; Albania, Andorra, Antigua and Barbuda, Arg…
+## $ earliest_date          &lt;date&gt; 2020-02-25, 2020-03-02, 2020-03-13, 2020-…
+## $ latest_date            &lt;date&gt; 2022-01-09, 2022-01-09, 2022-01-09, 2022-…
+## $ population_estimate    &lt;dbl&gt; 2872934, 77354, 98728, 45605823, 2968128, …
+## $ tests_total            &lt;dbl&gt; 737014, 275127, 16700, 29303102, 2594856, …
+## $ deaths_total           &lt;dbl&gt; 3240, 141, 120, 117492, 8001, 2387, 13848,…
+## $ hospitalizations_total &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 679440…</code></pre>
+<p>Now all countries in the <code>country_summaries_df</code> dataframe have testing data to work with. <br><br></p>
+</div>
+<div id="checking-for-countries-with-no-hospitalizations-and-deaths-data" class="section level3">
+<h3><em>Checking for countries with no hospitalizations and deaths data</em></h3>
+<p>However, several of the countries remaining in the dataframe have values of 0 in the <code>hospitalizations_total</code> column. We will have to remove those countries from analysis of the possible association between testing rates and hospitalizations. We must be careful, though, not to remove those countries necessarily from the analysis of the possible association between testing rates and deaths, as some of the countries with zero hospitalizations could still report deaths. The only remaining countries which we can safely remove from the prospective analysis with good reason are those, if any, that have reported zero hospitalizations and zero deaths. We search for countries that fit this criteria using the <code>which()</code> function:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(country_summaries_df<span class="sc">$</span>deaths_total <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>        country_summaries_df<span class="sc">$</span>hospitalizations_total <span class="sc">==</span> <span class="dv">0</span>)</span></code></pre></div>
+<pre><code>## integer(0)</code></pre>
+<p>The code output reveals that there are no such countries remaining in the country_summaries_df dataframe that report zero hospitalizations and zero deaths. Therefore, we can now move on to our statistical analyses.<br><br></p>
+</div>
+<div id="calculating-relevant-figures" class="section level3">
+<h3><em>Calculating relevant figures</em></h3>
+<p>The last step in preparing for statistical analyses is to transform the existing dataframe by calculating new values to reflect testing, hospitalization, and death rates standardised for population size. In other words, to answer our research questions of whether increased testing is associated with lower deaths and hospitalizations, we must take into account the fact that the various countries examined in the dataset have population sizes which range widely. Therefore, to establish figures that allow for relevant comparisons between countries, we will standardise tests, hospitalizations, and deaths per 100,000 people, which is common practice in the public health field. Additionally, we will create two separate dataframes from the original <code>country_summaries_df</code> dataframe so that, in the analysis of each outcome variable (hospitalizations and deaths), those countries who reported <em>either</em> zero hospitalizations <em>or</em> zero deaths can be removed while not affecting the country’s inclusion in the analysis of the other outcome variable, which we know does not measure as zero because we’ve just confirmed that no remaining countries report zero hospitalizations <em>and</em> zero deaths.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>hospitalizations_tests_df <span class="ot">&lt;-</span> country_summaries_df <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>deaths_total) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(hospitalizations_total <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tests_per_100k =</span> (tests_total <span class="sc">/</span> population_estimate) <span class="sc">*</span> <span class="dv">100000</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">hospitalizations_per_100k =</span> (hospitalizations_total <span class="sc">/</span>   </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                                       population_estimate) <span class="sc">*</span> <span class="dv">100000</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>deaths_tests_df <span class="ot">&lt;-</span> country_summaries_df <span class="sc">%&gt;%</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>hospitalizations_total) <span class="sc">%&gt;%</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(deaths_total <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tests_per_100k =</span> (tests_total <span class="sc">/</span> population_estimate) <span class="sc">*</span> <span class="dv">100000</span>, </span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">deaths_per_100k =</span> (deaths_total <span class="sc">/</span> population_estimate) <span class="sc">*</span> <span class="dv">100000</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="data-exploration-and-analyses" class="section level2">
+<h2><strong>Data exploration and analyses</strong></h2>
+<div id="data-visualisation-of-hospitalizations-versus-tests" class="section level3">
+<h3><em>Data visualisation of hospitalizations versus tests</em></h3>
+<p>For the purposes of answering our research question of whether countries with higher testing rates are associated with lower hospitalization and death rates, we will generate scatterplots to visualise the data using the <code>ggplot2</code> package in R. Then, after visualising the data, we will conduct simple linear regression modelling to test whether there is a linear relationship between the two outcome variables and test rates. First, we take a look at the plot of hospitalizations versus test rates.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#hospitalizations vs. test rates </span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> hospitalizations_tests_df, </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> tests_per_100k, <span class="at">y =</span> hospitalizations_per_100k)) <span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;COVID-19 tests conducted per 100,000 people&quot;</span>, </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Hospitalizations per 100,000 people&quot;</span>, </span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;COVID-19 Hospitalization vs. Test Rates &quot;</span>) <span class="sc">+</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_linedraw</span>() <span class="sc">+</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span> </span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">12500</span>))</span></code></pre></div>
+<p><img src="covid_testing_files/figure-html/data_visualisation-1.png" width="672" /></p>
+<p>The plot does not show any discernible association between test rates and hospitalization rates. To drive this home further, we try fitting a best fit linear regression line to the plot to see how well such a model would fit the data: <br><br></p>
+</div>
+<div id="linear-regression-modelling-of-hospitalizations-versus-tests" class="section level3">
+<h3><em>Linear regression modelling of hospitalizations versus tests</em></h3>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> hospitalizations_tests_df, </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> tests_per_100k, <span class="at">y =</span> hospitalizations_per_100k)) <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;COVID-19 tests conducted per 100,000 people&quot;</span>, </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Hospitalizations per 100,000 people&quot;</span>, </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;COVID-19 Hospitalization vs. Test Rates &quot;</span>) <span class="sc">+</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_linedraw</span>() <span class="sc">+</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span> </span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">12500</span>)) <span class="sc">+</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) </span></code></pre></div>
+<p><img src="covid_testing_files/figure-html/linear_regression_fit-1.png" width="672" /></p>
+<p>As the best fit linear regression line underscores, a linear model does not fit the observed data with reasonable accuracy. The results of linear regression analysis also confirm this:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>hospitalizations_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(hospitalizations_per_100k <span class="sc">~</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                            tests_per_100k, <span class="at">data =</span> hospitalizations_tests_df)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hospitalizations_lm)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = hospitalizations_per_100k ~ tests_per_100k, data = hospitalizations_tests_df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3357.1 -2586.2  -860.2  2300.7  8613.7 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     3.635e+03  8.478e+02   4.287 0.000254 ***
+## tests_per_100k -8.222e-04  1.514e-03  -0.543 0.592105    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3322 on 24 degrees of freedom
+## Multiple R-squared:  0.01214,    Adjusted R-squared:  -0.02902 
+## F-statistic: 0.2949 on 1 and 24 DF,  p-value: 0.5921</code></pre>
+<p>The p-value (listed as Pr(&gt;|t|)) is interpreted as the probability that the calculated coefficient for the tests_per_100k variable could be derived in a random sample if the null hypothesis — which states that there is no linear relationship between test rates and death rates — was true. The fact that the p-value is 0.59, much greater than the standard criteria of p&lt;0.05 for declaring findings significant, leads us to accept the null hypothesis. Moreover, the multiple R-square value of 0.01 means that only 1% of the variation in hospitalization rates can be accounted for in the linear regression model; the remaining 99% of the variation may be caused by a multitude of other factors. <br><br></p>
+</div>
+<div id="interpreting-the-statistical-analysis-results" class="section level3">
+<h3><em>Interpreting the statistical analysis results</em></h3>
+<p>Consequently, the data does not support the idea that higher test rates are associated with lower hospitalization rates. In fact, there doesn’t appear to be any observable relationship between the two variables at all. We could try fitting other types of models to the data such as polynomial models or nonlinear models but, when looking at the actual data distribution, it is fairly clear that testing rates are not a good predictor of hospitalization rates. Furthermore, we have no reason to expect the relationship between the two variables to be anything but linear. The possible implications of this finding are discussed below, but first we must also take a look at the data on test rates versus death rates: <br><br></p>
+</div>
+<div id="data-visualisation-of-deaths-versus-tests" class="section level3">
+<h3><em>Data visualisation of deaths versus tests</em></h3>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> deaths_tests_df, </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> tests_per_100k, <span class="at">y =</span> deaths_per_100k)) <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;COVID-19 tests conducted per 100,000 people&quot;</span>, </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Deaths per 100,000 people&quot;</span>, </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;COVID-19 Death vs. Test Rates&quot;</span>) <span class="sc">+</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_linedraw</span>() <span class="sc">+</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span> </span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) </span></code></pre></div>
+<p><img src="covid_testing_files/figure-html/deaths_tests-1.png" width="672" /> Once again, the scatterplot of our predictor variable (tests conducted per 100,000 people) versus our outcome variable (deaths per 100,000 people) does not reveal any clear, discernible relationship between the two variables. Plotting the best fit linear regression line to the data further confirms this observation:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> deaths_tests_df, </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> tests_per_100k, <span class="at">y =</span> deaths_per_100k)) <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;COVID-19 tests conducted per 100,000 people&quot;</span>, </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Deaths per 100,000 people&quot;</span>, </span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;COVID-19 Death vs. Test Rates&quot;</span>) <span class="sc">+</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_linedraw</span>() <span class="sc">+</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span> </span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span> </span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<p><img src="covid_testing_files/figure-html/deaths_best_fit_line-1.png" width="672" /></p>
+</div>
+<div id="linear-regression-modelling-of-deaths-versus-tests" class="section level3">
+<h3><em>Linear regression modelling of deaths versus tests</em></h3>
+<p>The statistical results of the linear regression modelling also confirm our observations of the plotted data:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>deaths_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(deaths_per_100k <span class="sc">~</span> tests_per_100k, <span class="at">data =</span> deaths_tests_df)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(deaths_lm)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = deaths_per_100k ~ tests_per_100k, data = deaths_tests_df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -121.10 -100.14  -35.00   67.92  492.57 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    1.156e+02  1.143e+01  10.115   &lt;2e-16 ***
+## tests_per_100k 2.061e-05  3.363e-05   0.613    0.541    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 116.7 on 133 degrees of freedom
+## Multiple R-squared:  0.002814,   Adjusted R-squared:  -0.004684 
+## F-statistic: 0.3753 on 1 and 133 DF,  p-value: 0.5412</code></pre>
+<p>Yet again, the p-value of the regression coefficient for the tests_per_100k variable as well as the multiple R-squared value confirm that the null hypothesis is true: there is no linear relationship between test rates and death rates. <br><br></p>
+</div>
+</div>
+<div id="conclusions" class="section level2">
+<h2><strong>Conclusions</strong></h2>
+<p>One could look at the data analyses detailed above and conclude that, perhaps, testing is not as useful in reducing adverse health outcomes in a pandemic as public health experts believe. However, that conclusion is likely incorrect for several reasons. For one, testing has been repeatedly found to be an invaluable tool in controlling infectious disease outbreaks in the past 50 years. It is impossible to know the true extent of a disease’s spread and its potential to infect more people without identifying which people have it. With this in mind, a more nuanced interpretation of the data would be to conclude that the efficacy of testing is highly influenced by other the manner in which testing regimes are conducted as well as other mediating factors.</p>
+<p>There are a number of different strategies for administering widespread testing in a pandemic, and all strategies are not equal. Though the quantity of tests conducted is important, what is most essential is that tests be targeted effectively at populations which are most likely to be infected. Scattershot testing administered indiscriminately can lead to extensive waste of limited resources. Test supplies and laboratory infrastructure can be unnecessarily exhausted if testing is not carried out judiciously, based on evidence-based predictions of which populations are most likely to experience an outbreak. Additionally, testing regimes may be hamstrung by the quality of tests and laboratory infrastructure that is available. For example, we know that some COVID-19 tests are more valid — meaning able to distinguish individuals who have a disease from those who do not — than others. Cost and supply chain issues are just two examples of the many factors that can influence the <em>quality</em> of tests used by a given country.</p>
+<p>Even when the best, most strategic and targeted testing regimes are implemented with valid tests, other variables can still have major impacts on the outcomes achieved. The beneficial effects of successful testing protocols can easily be reversed by poor decisions made in other areas. For example, a country with the most advanced testing program can easily experience devastating death and hospitalization rates if the disease is very infectious and no other mitigation measures such as masking, social distancing, quarantines, or lockdowns are implemented earnestly in conjunction with testing. Treatment of the disease could also be quite poor in comparison to other health systems. In total, there are countless mediating factors which could prevent an otherwise effective testing regime from achieving lower hospitalization and death rates.</p>
+<p>While the data does not merit dismissing the efficacy of widespread testing, it is nonetheless notable that testing rates were not a predictor of hospitalization or death rates. We do not know the exact combination of mediating factors that would cause this, but it is apparent that testing is just one variable of many that can influence the effectiveness of a country’s pandemic response. Future research could look at a number of other relevant variables (e.g., vaccination rates, days spent in lockdown, or population density) alongside testing rates in multiple regression modelling to determine which factors might be associated with hospitalization and death rates.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

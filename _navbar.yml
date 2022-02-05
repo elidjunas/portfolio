@@ -5,9 +5,9 @@ left:
   - text: "Projects"
     menu:
        - text: "Quantifying the greenhouse gas emissions of New Zealand households’ food purchases: An analysis by socio-demographics"
-         href: Dissertation.pdf
+         href: ./Dissertation.pdf
        - text: "Do COVID-19 testing rates predict nationwide health outcomes?"
-         href: ./project2.html
+         href: ./covid_testing.html
        - text: "SQL Project"
          href: ./project3.html 
   - text: "Contact"

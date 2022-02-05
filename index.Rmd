@@ -35,6 +35,8 @@ For my Bachelor of Health Sciences (Honours) dissertation, I examined the  possi
 
 ## *Do COVID-19 testing rates predict nationwide health outcomes?*
 
+In this project I examined a large dataset on various countries' responses to the COVID-19 outbreak from the "Our World in Data" website: <https://ourworldindata.org/>. Specifically, I examined whether higher testing rates (adjusted per 100,000 people) predicted better health outcomes in terms of hospitalisations and deaths. The project can be found here: <a href="https://elidjunas.github.io/portfolio/covid_testing.html">"Do COVID-19 testing rates predict nationwide health outcomes."</a> 
+
 
 ## *Portfolio Projects in Progress*
 
