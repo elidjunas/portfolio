@@ -1,0 +1,10 @@
+---
+title: "Contact"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Feel free to email me at <elidjunas@gmail.com> with any enquiries you might have!
