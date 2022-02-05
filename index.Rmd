@@ -1,6 +1,6 @@
 ---
 title: "Eli's Data Science Portfolio"
-date: "05/02/2022"
+date: "06/02/2022"
 output: 
   html_document
 ---
@@ -25,12 +25,17 @@ Looking ahead, I plan to complete a PhD in biostatistics in the next five years.
 ## *Programming Skills*
 I am proficient in data cleaning, transforming, exploration, visualisation, and statistical analysis using R. My skills with this language were developed primarily over the course of postgraduate dissertation, then further expanded in the completion of the independent project titled "Do COVID-19 testing rates predict nationwide health outcomes." Both projects are described below. Though I am comfortable with R at this point, I plan to begin learning Python in the coming months. 
 
-Thus far I have worked exclusively with R, though I plan to begin learning Python in the coming months in order to gain experience with machine learning and webscraping. In the meantime, I am currently completing the "SQL Fundamentals" course in the "Data Analyst in R" path on <https://www.dataquest.io/> and will move on shortly to the "Intermediate SQL in R" course.<br><br>  
+Thus far I have worked exclusively with R, though I plan to begin learning Python in the coming months in order to gain experience with machine learning and webscraping. In the meantime, I am currently completing the "SQL Fundamentals" course in the "Data Analyst in R" path on <https://www.dataquest.io/> and will move on shortly to the "Intermediate SQL in R" course. In general, I am a keen learner, and I am constantly working to upskill my abilities in data science. <br><br>  
 
 # **Portfolio Projects**
 
 ## *Quantifying the greenhouse gas emissions of New Zealand households’ food purchases: An analysis by socio-demographics*
+
+For my Bachelor of Health Sciences (Honours) dissertation, I examined the  possible associations between various socio-demographic variables and dietary emissions — i.e., emissions stemming from foods' farming and processing, transit packaging, transportation, consumer packaging, warehouse and distribution, refrigeration, and retail overheads —  utilizing a large dataset of New Zealand household food purchases (n=1,998,499) recorded over the course of a year. Data cleaning, transformation, and visualization as well as statistical analyses were performed using R. For details on the entire data analysis cycle undertaken for this project, refer to the methods section (section 3) on page 27 in the accompanying <a href="elidjunas.github.io/portfolio/Dissertation.pdf" target="_blank">PDF</a>. The results section starting on page 38 provides examples of data presentation and visualisation. In my current position as a Research Assistant at the University of Auckland, I am preparing to submit the research for publication in an academic journal. 
+
 ## *Do COVID-19 testing rates predict nationwide health outcomes?*
+
+
 ## *Portfolio Projects in Progress*
 
 
