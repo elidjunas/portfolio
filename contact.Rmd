@@ -1,8 +1,15 @@
 ---
 title: "Contact"
-output: html_document
+output: 
+  html_document:
+      toc: FALSE
 ---
-
+<style type="text/css">
+  body{
+  font-size: 16pt;
+  color: black; 
+}
+</style>
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```

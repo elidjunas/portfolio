@@ -8,7 +8,7 @@ left:
          href: ./Dissertation.pdf
        - text: "Do COVID-19 testing rates predict nationwide health outcomes?"
          href: ./covid_testing.html
-       - text: "SQL Project"
+       - text: "SQL project in progress"
          href: ./sql_cia_factbook.html 
   - text: "Contact"
     href: ./contact.html
