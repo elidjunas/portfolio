@@ -1,0 +1,29 @@
+---
+title: "Eli's Data Science Portfolio"
+output: 
+  html_document
+---
+
+<style type="text/css">
+  body{
+  font-size: 16pt;
+  color: black; 
+}
+</style>
+
+
+**Welcome to my portfolio website!** <br><br>
+
+
+# **Introducing Myself**
+
+Click the links in the menu above to look around.
+
+# **Portfolio Projects**
+
+## *Quantifying the greenhouse gas emissions of New Zealand households’ food purchases: An analysis by socio-demographics*
+## *Do COVID-19 testing rates predict nationwide health outcomes?*
+## *Portfolio Projects in Progress*
+
+
+
