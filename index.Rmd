@@ -39,7 +39,7 @@ For my Bachelor of Health Sciences (Honours) dissertation, I examined the  possi
 In this project I examined a large dataset on various countries' responses to the COVID-19 outbreak from the "Our World in Data" website: <https://ourworldindata.org/>. Specifically, I examined whether higher testing rates (adjusted per 100,000 people) predicted better health outcomes in terms of hospitalisations and deaths. The project can be found here: <a href="https://elidjunas.github.io/portfolio/covid_testing.html">"Do COVID-19 testing rates predict nationwide health outcomes."</a> It provides a detailed overview of my entire data analysis process from conceptualisation to data cleaning, transforming, visualising, and statistical analyses. The document provides more detail than would normally be provided outside of academia. However, I included this level of detail to fully articulate my workflow within R. <br><br>
 
 
-## *Portfolio Projects in Progress*
+## *Projects in Progress*
 I am currently working on a project using SQL in Jupyter Notebook to query data from the CIA World Factbook, a large dataset that provides a wide range of statistics about all of the countries in the world. More on that to come soon...watch this space!
 
 
