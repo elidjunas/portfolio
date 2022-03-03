@@ -40,6 +40,6 @@ In this project I examined a large dataset on various countries' responses to th
 
 
 ## *Projects in Progress*
-I am currently working on a project using SQL in Jupyter Notebook to query data from the CIA World Factbook, a large dataset that provides a wide range of statistics about all of the countries in the world. More on that to come soon...watch this space!
+I am currently working on a project using SQL in Jupyter Notebook to query data from the CIA World Factbook, a large dataset that provides a wide range of statistics about all of the countries in the world. More on that to come soon!
 
 
